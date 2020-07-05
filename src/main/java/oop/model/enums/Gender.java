@@ -9,7 +9,7 @@ public enum Gender {
         return genderName;
     }
 
-    Gender(String genderName) {  //konstruktorrvtypu wyliczeniowego
+    Gender(String genderName) {  //konstruktorv typu wyliczeniowego
         this.genderName = genderName;
 
 
