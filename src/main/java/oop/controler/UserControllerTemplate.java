@@ -15,9 +15,9 @@ public interface UserControllerTemplate {
     //pole statyczne finalne
     List<User> users = new ArrayList<>(
             Arrays.asList(
-                    new User("Adam", "Kowalski", "ak@ak.pl", "ak", "123456123", Gender.MAN),
-                    new User("Jan", "Nowak", "jn@jn.pl", "jn", "111111111", Gender.MAN),
-                    new User("Anna", "Lis", "al@al.pl", "al", "123234345", Gender.WOMAN)
+                    new User("Adam", "Kowalski", "ak@ak.pl", "ak", "123-456-123", Gender.MAN),
+                    new User("Jan", "Nowak", "jn@jn.pl", "jn", "111-111-111", Gender.MAN),
+                    new User("Anna", "Lis", "al@al.pl", "al", "123-234-345", Gender.WOMAN)
             )
     );
     // metoda abstrakcyjna - metoda nie posiadająca ciała - implementacji -> sygnatura metody
