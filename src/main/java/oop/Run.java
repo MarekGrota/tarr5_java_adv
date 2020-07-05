@@ -30,7 +30,7 @@ public class Run {
                 String lastName = scanner.nextLine();
                 System.out.println("Podaj email: ");
                 String email = scanner.nextLine();
-                String emailPattern = "^\\X{1,}[@]\\X{1,}$";
+                String emailPattern = "^\\S{1,}[@]\\S{1,}$";    // s - non-whitespace character
                 if (!Pattern.matches(emailPattern, email)) {
                     System.out.println("Błędny email");
                     continue;
