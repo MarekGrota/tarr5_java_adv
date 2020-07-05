@@ -5,6 +5,7 @@ import oop.controler.UserControllerTemplate;
 import oop.model.User;
 import oop.model.enums.Gender;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -21,9 +22,9 @@ public class Run {
         Scanner scanner = new Scanner(System.in);
         List<User> users = UserControllerTemplate.users;
         while (true) {
-            System.out.println("Co chcesz zrobić? \n1. Rejestracja \n2. Lista użytkowników \nQ. Wyjście");
-            String chioce = scanner.nextLine().toUpperCase();
-            if (chioce.equals("1")) {
+            System.out.println("Co chcesz zrobić? \n1. Rejestracja \n2. Lista użytkowników \n3. Logowanie  \n4. Wyszukaj użytkownika po ID i zmień mu hasło \nQ. Wyjście");
+            String choice = scanner.nextLine().toUpperCase();
+            if (choice.equals("1")) {
                 System.out.println("Podaj imię: ");
                 String name = scanner.nextLine();
                 System.out.println("Podaj nazwisko: ");
@@ -41,7 +42,7 @@ public class Run {
                 String genderInput = scanner.nextLine().toUpperCase();
                 String genderPattern = "^[MK]{1}$";
 
-                if (!Pattern.matches(genderPattern,genderInput)) {
+                if (!Pattern.matches(genderPattern, genderInput)) {
                     System.out.println("Błednie wprowadzona płeć!");
                     continue;
                 }
@@ -58,10 +59,28 @@ public class Run {
 
                 uc.registerUser(new User(name, lastName, email, password, phone, gender));
 
-            } else if (chioce.equals("2")) {
+            } else if (choice.equals("2")) {
                 uc.findAllUsers().forEach(user -> System.out.println(user));
 
-            } else if (chioce.equals("Q")) {
+            } else if (choice.equals("3")) {
+                System.out.println("Podaj email: ");
+                String email = scanner.nextLine();
+                System.out.println("Podaj hasło: ");
+                String password = scanner.nextLine();
+                uc.loginUser(email, password);
+
+            } else if (choice.equals("4")){
+                try {
+                    System.out.println("Podaj id:");
+                    int userId = Integer.valueOf(scanner.nextLine());
+                    System.out.println("Podaj nowe hasło:");
+                    String newPassword = scanner.nextLine();
+                    uc.updateUserPassword(userId, newPassword);
+                } catch (InputMismatchException e){
+                    System.out.println("Błędny id");
+
+                }
+            } else if (choice.equals("Q")) {
                 System.out.println("Wyjście");
                 break;
             } else {
