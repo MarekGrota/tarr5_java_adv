@@ -38,15 +38,16 @@ public class User {
         this.phone = phone;
         this.gender = gender;
         this.userId = globalId;
-        globalId ++;        // inkrementacja globalnej zmiennej
+        globalId++;        // inkrementacja globalnej zmiennej
     }
 
     @Override
     public String toString() {
-        return String.format("| %3d | %15s | %10s | %10s | %9s | %10s | %40s|%25s |%6s | %6s |", userId, name,lastName,email,password,phone, gender, roles,
+        return String.format("| %3d | %15s | %10s | %10s | %9s | %10s | %40s|%25s |%6s | %6s |", userId, name, lastName, email, password, phone, gender, roles,
                 registrationDateTime, status, removed);
 
     }
+
     public int getUserId() {
         return userId;
     }
