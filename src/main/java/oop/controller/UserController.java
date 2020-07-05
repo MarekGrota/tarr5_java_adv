@@ -1,4 +1,4 @@
-package oop.controler;
+package oop.controller;
 
 //klasa controllera - odpowiedzialna za obsługę i implementację logiki biznesowej aplikacji
 

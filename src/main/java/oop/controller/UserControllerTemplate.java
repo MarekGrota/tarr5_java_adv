@@ -1,4 +1,4 @@
-package oop.controler;
+package oop.controller;
 
 import oop.model.User;
 import oop.model.enums.Gender;
