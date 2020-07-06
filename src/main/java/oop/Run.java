@@ -7,6 +7,8 @@ import oop.model.User;
 import oop.model.enums.Gender;
 
 import java.util.InputMismatchException;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,7 @@ public class Run extends InputOutputController {
         Run run = new Run();
         // pobieranie danych z pliku
         run.readUsersFromFile();
-        // -------------------------
+
         while(true) {
             System.out.println("Co chcesz zrobic? \n1.Rejestracja \n2.Lista użytkowników \n3.Logowanie \n4.Zmień hasło \nQ.Wyjście");
             String choice = scanner.nextLine().toUpperCase();
@@ -30,34 +32,34 @@ public class Run extends InputOutputController {
                 String lastName = scanner.nextLine();
                 System.out.println("Podaj email:");
                 String email = scanner.nextLine();
-                //---
+
                 String emailPattern = "^\\S{1,}[@]\\S{1,}$";    // \S - any non-whitespace character
                 if(!Pattern.matches(emailPattern, email)){
                     System.out.println("Błędny adres e-mail");
                     continue;
                 }
-                //---
+
                 System.out.println("Podaj hasło:");
                 String password = scanner.nextLine();
                 System.out.println("Podaj płeć (M/K):");
                 String genderInput = scanner.nextLine().toUpperCase();
-                //---
+
                 String genderPattern = "^[MK]{1}$";
                 if(!Pattern.matches(genderPattern,genderInput)){
                     System.out.println("Błędnie wprowadzona płeć");
                     continue;
                 }
-                //---
+
                 Gender gender = genderInput.equals("M") ? Gender.MAN : Gender.WOMAN;
                 System.out.println("Podaj telefon (000-000-000):");
                 String phone = scanner.nextLine();
-                //---
+
                 String phonePattern = "^[0-9]{3}(-[0-9]{3}){2}$";
                 if(!Pattern.matches(phonePattern, phone)){
                     System.out.println("Błędny numer telefonu!");
                     continue;
                 }
-                //---
+
 
                 uc.registerUser(new User(name, lastName, email, password, phone, gender));
             } else if(choice.equals("2")) {

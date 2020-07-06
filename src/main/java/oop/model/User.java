@@ -9,6 +9,8 @@ import oop.model.enums.Gender;
 import oop.model.enums.Role;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 //klasa model -> klasa determinująca strukturę danych
@@ -24,7 +26,7 @@ public class User {
     //płeć jest typem wyliczeniowym
     private Gender gender;
     // zbiór ról
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_VIEWER));
     private LocalDateTime registrationDateTime = LocalDateTime.now();
     private boolean status = true;
     private boolean removed = false;
@@ -52,63 +54,82 @@ public class User {
         return userId;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
     public String getLastName() {
+
         return lastName;
     }
 
     public void setLastName(String lastName) {
+
         this.lastName = lastName;
     }
 
     public String getEmail() {
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
     public String getPassword() {
+
         return password;
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
     public String getPhone() {
+
         return phone;
     }
 
     public void setPhone(String phone) {
+
         this.phone = phone;
     }
 
     public Gender getGender() {
+
         return gender;
     }
 
     public void setGender(Gender gender) {
+
         this.gender = gender;
     }
 
     public Set<Role> getRoles() {
+
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
+
         this.roles = roles;
     }
 
     public LocalDateTime getRegistrationDateTime() {
+
         return registrationDateTime;
     }
 
@@ -117,18 +138,22 @@ public class User {
     }
 
     public boolean isStatus() {
+
         return status;
     }
 
     public void setStatus(boolean status) {
+
         this.status = status;
     }
 
     public boolean isRemoved() {
+
         return removed;
     }
 
     public void setRemoved(boolean removed) {
+
         this.removed = removed;
     }
 }
