@@ -82,7 +82,13 @@ public class UserController implements UserControllerTemplate {
 
     @Override
     public void deleteUserById(int userId) {
-
+        for(User user : users){
+            if(user.getUserId() == userId){
+                users.remove(user);
+                System.out.println("Usunięto użytkownika : " + (user));
+                return;
+            }
+        }
     }
 
     @Override

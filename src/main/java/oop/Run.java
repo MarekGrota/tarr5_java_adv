@@ -2,13 +2,10 @@ package oop;
 
 import oop.controller.InputOutputController;
 import oop.controller.UserController;
-import oop.controller.UserControllerTemplate;
 import oop.model.User;
 import oop.model.enums.Gender;
 
 import java.util.InputMismatchException;
-import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -23,7 +20,7 @@ public class Run extends InputOutputController {
         run.readUsersFromFile();
 
         while(true) {
-            System.out.println("Co chcesz zrobic? \n1.Rejestracja \n2.Lista użytkowników \n3.Logowanie \n4.Zmień hasło \nQ.Wyjście");
+            System.out.println("Co chcesz zrobic? \n1.Rejestracja \n2.Lista użytkowników \n3.Logowanie \n4.Zmień hasło \n5.Uwówanie użytkowników po id  \nQ.Wyjście");
             String choice = scanner.nextLine().toUpperCase();
             if(choice.equals("1")){
                 System.out.println("Podaj imię:");
@@ -70,14 +67,22 @@ public class Run extends InputOutputController {
                 System.out.println("Podaj hasło:");
                 String password = scanner.nextLine();
                 uc.loginUser(email, password);
-            } else if (choice.equals("4")){
+            } else if (choice.equals("4")) {
                 try {
                     System.out.println("Podaj id:");
                     int userId = Integer.valueOf(scanner.nextLine());
                     System.out.println("Podaj nowe hasło:");
                     String newPassword = scanner.nextLine();
                     uc.updateUserPassword(userId, newPassword);
-                } catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
+                    System.out.println("Błędny id");
+                }
+            } else if (choice.equals("5")) {
+                try {
+                System.out.println("Podaj id do skasowania:");
+                int userId = Integer.valueOf(scanner.nextLine());
+                uc.deleteUserById(userId);
+                } catch (InputMismatchException e) {
                     System.out.println("Błędny id");
                 }
             } else if (choice.equals("Q")){
