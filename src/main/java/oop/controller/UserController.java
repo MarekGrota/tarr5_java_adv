@@ -88,15 +88,17 @@ public class UserController implements UserControllerTemplate {
 
     @Override
     public void deleteUserById(int userId) {
-        for (User user : users) {
-            if (user.getUserId() == userId) {
-                users.remove(user);
-                System.out.println("Usunięto użytkownika : " + user.getEmail());
-                break;
-            }
-        }
         if (findUserById(userId) == null) {
             System.out.println("Nie ma użytkownika o id = " + userId);
+        } else {
+            for (User user : users) {
+                if (user.getUserId() == userId) {
+                    users.remove(user);
+                    System.out.println("Usunięto użytkownika : " + user.getEmail());
+                    break;
+                }
+            }
+
         }
     }
 
