@@ -74,4 +74,4 @@ public class SimpleStreamApi {
         System.out.println("MAX: " + ssa.getMax());
         System.out.println("Srednia:" + ssa.getAvg());
     }
-}
+}   
