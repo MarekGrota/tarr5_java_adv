@@ -19,11 +19,11 @@ public class Run extends InputOutputController {
         // pobieranie danych z pliku
         run.readUsersFromFile();
 
-        while(true) {
+        while (true) {
             System.out.println("\nCo chcesz zrobic? \n1.Rejestracja \n2.Lista użytkowników \n3.Logowanie \n4.Zmień hasło " +
                     "\n5.Uwówanie użytkowników po id  \n6.Wypisz posortowanych użytkowników (po email)\nQ.Wyjście");
             String choice = scanner.nextLine().toUpperCase();
-            if(choice.equals("1")){
+            if (choice.equals("1")) {
                 System.out.println("Podaj imię:");
                 String name = scanner.nextLine();
                 System.out.println("Podaj nazwisko:");
@@ -32,7 +32,7 @@ public class Run extends InputOutputController {
                 String email = scanner.nextLine();
 
                 String emailPattern = "^\\S{1,}[@]\\S{1,}$";    // \S - any non-whitespace character
-                if(!Pattern.matches(emailPattern, email)){
+                if (!Pattern.matches(emailPattern, email)) {
                     System.out.println("Błędny adres e-mail");
                     continue;
                 }
@@ -43,7 +43,7 @@ public class Run extends InputOutputController {
                 String genderInput = scanner.nextLine().toUpperCase();
 
                 String genderPattern = "^[MK]{1}$";
-                if(!Pattern.matches(genderPattern,genderInput)){
+                if (!Pattern.matches(genderPattern, genderInput)) {
                     System.out.println("Błędnie wprowadzona płeć");
                     continue;
                 }
@@ -53,14 +53,14 @@ public class Run extends InputOutputController {
                 String phone = scanner.nextLine();
 
                 String phonePattern = "^[0-9]{3}(-[0-9]{3}){2}$";
-                if(!Pattern.matches(phonePattern, phone)){
+                if (!Pattern.matches(phonePattern, phone)) {
                     System.out.println("Błędny numer telefonu!");
                     continue;
                 }
 
 
                 uc.registerUser(new User(name, lastName, email, password, phone, gender));
-            } else if(choice.equals("2")) {
+            } else if (choice.equals("2")) {
                 uc.findAllUsers().forEach(user -> System.out.println(user));
             } else if (choice.equals("3")) {
                 System.out.println("Podaj email:");
@@ -86,15 +86,15 @@ public class Run extends InputOutputController {
                 } catch (InputMismatchException e) {
                     System.out.println("Błędny id");
                 }
-            } else if (choice.equals("6")){
+            } else if (choice.equals("6")) {
                 System.out.println("Wybierz typ sortowania ASC - rosnąco, DESC - malejąco");
                 boolean asc = true;
                 String decision = scanner.nextLine();
-                if(decision.toUpperCase().equals("DESC")){
+                if (decision.toUpperCase().equals("DESC")) {
                     asc = false;
                 }
                 uc.findAllUsersOrderByEmail(asc).forEach(user -> System.out.println(user));
-            } else if (choice.equals("Q")){
+            } else if (choice.equals("Q")) {
                 run.saveUsersToFile();
                 System.out.println("Wyjście");
                 break;
