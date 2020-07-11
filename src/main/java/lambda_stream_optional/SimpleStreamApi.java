@@ -64,6 +64,10 @@ public class SimpleStreamApi {
         }
     }
 
+    // metoda wypisująca liczby większe niż wartość w argumencie
+    public void getNumbersGreatherThan(double treshold) {
+    }
+
     public static void main(String[] args) {
         SimpleStreamApi ssa = new SimpleStreamApi();
 //        ssa.getAllNumbers();
