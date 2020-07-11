@@ -85,11 +85,15 @@ public class UserController implements UserControllerTemplate {
         for(User user : users){
             if(user.getUserId() == userId){
                 users.remove(user);
-                System.out.println("Usunięto użytkownika : " + (user));
-                return;
+                System.out.println("Usunięto użytkownika : " + user.getEmail());
+                break;
             }
         }
+        if (findUserById(userId) ==null) {
+            System.out.println("Nie ma użytkownika o id = " + userId);
+        }
     }
+
 
     @Override
     public void updateRole(int userId, Set<Role> newRoles) {
