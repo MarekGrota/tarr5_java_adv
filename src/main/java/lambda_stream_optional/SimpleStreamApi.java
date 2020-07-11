@@ -46,11 +46,11 @@ public class SimpleStreamApi {
 
     // metoda zwracająca średnią wartość w liście
     public double getAvg() {
-      if(numbers.stream().mapToDouble(value -> Double.valueOf(value)).average().isPresent()) {
+        if (numbers.stream().mapToDouble(value -> Double.valueOf(value)).average().isPresent()) {
             return numbers.stream().mapToDouble(value -> Double.valueOf(value)).average().getAsDouble();
         }
         System.out.println("Lista jest pusta.");
-      return 0.0;
+        return 0.0;
     }
 
 
@@ -74,4 +74,4 @@ public class SimpleStreamApi {
         System.out.println("MAX: " + ssa.getMax());
         System.out.println("Srednia:" + ssa.getAvg());
     }
-}   
+}
