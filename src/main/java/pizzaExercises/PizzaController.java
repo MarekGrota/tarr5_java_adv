@@ -11,7 +11,7 @@ public class PizzaController {
     }
 
     // metoda zwracająca tylko pizze ostre
-    public List<Pizza> getAllSpice() {
+    public List<Pizza> getAllSpicy() {
         return Arrays.stream(Pizza.values())
                 .filter(pizza -> pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isSpicy()))
                 .collect(Collectors.toList());
@@ -31,7 +31,7 @@ public class PizzaController {
     }
 
     // metoda wypisująca pizze wraz z cenami
-    public void getAllPizzaWithPrices() {
+    public void getAllPizzasWithPrices() {
         Arrays.stream(Pizza.values())
                 .forEach(pizza -> System.out.println(pizza.getName() + " - " + calculatePizzaPrice(pizza) + " PLN"));
     }
@@ -53,21 +53,36 @@ public class PizzaController {
         return Arrays.stream(Pizza.values())
                 .filter(pizza -> pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isMeat()))
                 .sorted(Comparator.comparing(this::countMeatIngredients).reversed()).collect(Collectors.toList());
-
-
     }
 
+    // metoda grupujące pizzę po cenie
+    public Map<Integer, List<Pizza>> groupByPrice(){
+        return Arrays.stream(Pizza.values()).collect(Collectors.groupingBy(pizza -> calculatePizzaPrice(pizza)));
+    }
+    // metoda grupujące pizze po poziomach ostrości
+    public Map<Boolean, List<Pizza>> groupBySpicy(){
+        return Arrays.stream(Pizza.values())
+                .collect(Collectors.groupingBy(pizza -> pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isSpicy())));
+    }
+    // metoda grupująca pizze po liczbie składników()
+    public Map<Integer, List<Pizza>> groupByIngredientsSize(){
+        return Arrays.stream(Pizza.values()).collect(Collectors.groupingBy(pizza -> pizza.getIngredients().size()));
+    }
     public static void main(String[] args) {
         PizzaController pc = new PizzaController();
-        System.out.println("\nCena: " + pc.calculatePizzaPrice(Pizza.MARGHERITA));
-        System.out.println("\nOstre: ");
-        pc.getAllSpice().forEach(System.out::println);
-        pc.getAllPizzaWithPrices();
-        System.out.println("\nNajtańsza pizza ostra: ");
+        System.out.println("CENA: " + pc.calculatePizzaPrice(Pizza.MARGHERITA));
+        System.out.println("OSTRE");
+        pc.getAllSpicy().forEach(System.out::println);
+        System.out.println("PIZZE Z CENAMI");
+        pc.getAllPizzasWithPrices();
+        System.out.println("NAJTANSZA PIZZA OSTRA");
         System.out.println(pc.findCheapestSpicy());
-        System.out.println("Najdroższa pizza wegetariańska: ");
+        System.out.println("NAJDROŻSZA PIZZA WEGE");
         System.out.println(pc.findMostExpensiveVegetarian());
-        System.out.println("Pizze mięsne z posortowaną liczbą składników: ");
+        System.out.println("PIZZE MIĘSNE POSORTOWANE PO LICZBIE SKŁADNIKÓW MIĘSNYCH");
         pc.iLikeMeat().forEach(pizza -> System.out.println(pizza + " " + pc.countMeatIngredients(pizza)));
+        pc.groupByPrice().forEach((price, pizzas) -> System.out.println(price + " : " + pizzas));
+        pc.groupBySpicy().forEach((spicy, pizzas) -> System.out.println(spicy + " : " + pizzas));
+        pc.groupByIngredientsSize().forEach((ingredients, pizzas) -> System.out.println(ingredients + " : " + pizzas));
     }
 }
