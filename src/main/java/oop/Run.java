@@ -4,9 +4,9 @@ import oop.controller.InputOutputController;
 import oop.controller.UserController;
 import oop.model.User;
 import oop.model.enums.Gender;
+import oop.model.enums.Role;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Run extends InputOutputController {
@@ -21,7 +21,7 @@ public class Run extends InputOutputController {
 
         while (true) {
             System.out.println("\nCo chcesz zrobic? \n1.Rejestracja \n2.Lista użytkowników \n3.Logowanie \n4.Zmień hasło " +
-                    "\n5.Uwówanie użytkowników po id  \n6.Wypisz posortowanych użytkowników (po email)\nQ.Wyjście");
+                    "\n5.Uwówanie użytkowników po id  \n6.Wypisz posortowanych użytkowników (po email) \n7. Przypisz role \nQ.Wyjście");
             String choice = scanner.nextLine().toUpperCase();
             if (choice.equals("1")) {
                 System.out.println("Podaj imię:");
@@ -94,6 +94,33 @@ public class Run extends InputOutputController {
                     asc = false;
                 }
                 uc.findAllUsersOrderByEmail(asc).forEach(user -> System.out.println(user));
+            } else if (choice.equals("7")) {
+                try {
+                    System.out.println("Podaj id do zmiany ról:");
+                    int userId = Integer.valueOf(scanner.nextLine());
+                    Set<Role> roles = new HashSet<>();
+                    while (true) {
+                        System.out.println("Wybierz pojedyńczo role (Q-kończy wybór):");
+                        Arrays.stream(Role.values()).forEach(role -> System.out.println(role.ordinal() + "." + role));
+                        String decision = scanner.nextLine();
+                        if (decision.equals("0")) {
+                            roles.add(Role.ROLE_USER);
+                        } else if (decision.equals("1")) {
+                            roles.add(Role.ROLE_ADMIN);
+                        } else if (decision.equals("2")) {
+                            roles.add(Role.ROLE_VIEWER);
+                        } else if (decision.toUpperCase().equals("Q")) {
+                            System.out.println("Zaktualizowano zbiór ról.");
+                            break;
+                        } else {
+                            System.out.println("Błędny wybór ról.");
+                        }
+                    }
+                    uc.updateRole(userId, roles);
+                    System.out.println();
+                } catch (InputMismatchException e) {
+                    System.out.println("Błędny id");
+                }
             } else if (choice.equals("Q")) {
                 run.saveUsersToFile();
                 System.out.println("Wyjście");

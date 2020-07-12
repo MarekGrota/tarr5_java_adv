@@ -106,19 +106,36 @@ public class UserController implements UserControllerTemplate {
     @Override
     public void updateRole(int userId, Set<Role> newRoles) {
 
-    }
-    //---------------------------------------------------------
+    if(findUserById(userId) !=null)
 
-    @Override
-    public List<User> findAllUsersOrderByEmail(boolean asc) {
-        if (asc) {       // sortowanie rosnące A-Z
-            return users.stream()                                           // zamiana List<User> -> Stream<User>
-                    .sorted(Comparator.comparing(User::getEmail))           // SortedStream<User>
-                    .collect(Collectors.toList());                          // zamiana SortedStream<User> -> List<User>
-        } else {        // sortowanie malejące Z-A
-            return users.stream()                                                   // zamiana List<User> -> Stream<User>
-                    .sorted(Comparator.comparing(User::getEmail).reversed())        // SortedStream<User>
-                    .collect(Collectors.toList());
-        }
+    {
+        User user = findUserById(userId);
+        user.setRoles(newRoles);
+        System.out.println(newRoles);
+    } else
+
+    {
+
+        System.out.println("Nie zmieniono ról, ponieważ nie ma użytkownika " + userId);
+        return;
+
     }
+
 }
+
+
+            //---------------------------------------------------------
+
+            @Override
+            public List<User> findAllUsersOrderByEmail ( boolean asc){
+                if (asc) {       // sortowanie rosnące A-Z
+                    return users.stream()                                           // zamiana List<User> -> Stream<User>
+                            .sorted(Comparator.comparing(User::getEmail))           // SortedStream<User>
+                            .collect(Collectors.toList());                          // zamiana SortedStream<User> -> List<User>
+                } else {        // sortowanie malejące Z-A
+                    return users.stream()                                                   // zamiana List<User> -> Stream<User>
+                            .sorted(Comparator.comparing(User::getEmail).reversed())        // SortedStream<User>
+                            .collect(Collectors.toList());
+                }
+            }
+        }
