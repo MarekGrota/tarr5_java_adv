@@ -5,8 +5,7 @@ import oop.model.enums.Gender;
 import oop.model.enums.Role;
 import org.w3c.dom.ls.LSOutput;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamApiWithModel {
@@ -38,14 +37,54 @@ public class StreamApiWithModel {
                 filter(user -> user.getRoles().contains(role))
                 .collect(Collectors.toList());
 
-
     }
+    // metoda grupująca użytkowników po zbiorach ról
+    public Map<Set<Role>, List<User>> grupUsersByRoleSet() {
+        return InMemoryData.users.stream().collect(Collectors.groupingBy(User::getRoles));
+    }
+
+    // metoda do grupowania po płci
+    public Map<Gender, List<User>> groupUsersByGender() {
+        return InMemoryData.users.stream().collect(Collectors.groupingBy(o -> o.getGender()));
+    }
+
+
+    // metoda grupująca użytkowników po rolach występujących w zbiorach ról
+    public Map<Role, List<User>> userRoleMapper() {
+        Map<Role, List<User>> userRoleMap = new HashMap<>();
+        for (Role role : Role.values()) {
+            List<User> groupingUsers = new ArrayList<>();
+            for (User user : InMemoryData.users) {
+                if (user.getRoles().contains(role)) {
+                    groupingUsers.add(user);
+                    userRoleMap.put(role, groupingUsers);
+                }
+            }
+        }
+        return userRoleMap;
+    }
+
+    // metoda grupująca użytkowników po rolach występujących w zbiorach ról
+//    public Map<Set<Role>, List<User>> grupUsersByRole() {
+//        return InMemoryData.users.stream().collect(Collectors.groupingBy(o ->o.getRoles().));
+//
+//    }
+
+
+
+
     public static void main(String[] args) {
         StreamApiWithModel sapi = new StreamApiWithModel();
 //        sapi.getAllUsers();
-        sapi.getAllUsersOrderByRegistrationDateDecs();
+//        sapi.getAllUsersOrderByRegistrationDateDecs();
 //        System.out.println("Logowanie: " + sapi.loginUser("hl@hl.pl", "hl"));
-        System.out.println("Liczba kobiet: " + sapi.countAllWomen());
-        sapi.getAllUsersContainsRole(Role.ROLE_ADMIN).forEach(System.out::println);
+//        System.out.println("Liczba kobiet: " + sapi.countAllWomen());
+//        sapi.getAllUsersContainsRole(Role.ROLE_ADMIN).forEach(System.out::println);
+//        sapi.grupUsersByRoleSet().forEach((roles, users) -> System.out.printf("%30s | %30s\n", roles, users));
+        sapi.userRoleMapper();
+        System.out.println(sapi.userRoleMapper().get(Role.ROLE_ADMIN));
+        System.out.println(sapi.userRoleMapper().get(Role.ROLE_USER));
+        System.out.println(sapi.userRoleMapper().get(Role.ROLE_VIEWER));
+
     }
 }
