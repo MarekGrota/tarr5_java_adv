@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class PizzaController {
     // metoda zwracająca cenę pizzy na podstawie cen składowych wszystkich jej składników
     public int calculatePizzaPrice(Pizza pizza) {
-       return pizza.getIngredients().stream()
+        return pizza.getIngredients().stream()
                 .mapToInt(p -> p.getPrice()).sum();
     }
 
@@ -44,7 +44,8 @@ public class PizzaController {
                 .findFirst().get();
 
     }
-    public long countMeatIngredients (Pizza pizza) {
+
+    public long countMeatIngredients(Pizza pizza) {
         return pizza.getIngredients().stream().filter(Ingredient::isMeat).count();
     }
 
@@ -56,17 +57,37 @@ public class PizzaController {
     }
 
     // metoda grupujące pizzę po cenie
-    public Map<Integer, List<Pizza>> groupByPrice(){
+    public Map<Integer, List<Pizza>> groupByPrice() {
         return Arrays.stream(Pizza.values()).collect(Collectors.groupingBy(pizza -> calculatePizzaPrice(pizza)));
     }
+
     // metoda grupujące pizze po poziomach ostrości
-    public Map<Boolean, List<Pizza>> groupBySpicy(){
+    public Map<Boolean, List<Pizza>> groupBySpicy() {
         return Arrays.stream(Pizza.values())
                 .collect(Collectors.groupingBy(pizza -> pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isSpicy())));
     }
+
     // metoda grupująca pizze po liczbie składników()
-    public Map<Integer, List<Pizza>> groupByIngredientsSize(){
+    public Map<Integer, List<Pizza>> groupByIngredientsSize() {
         return Arrays.stream(Pizza.values()).collect(Collectors.groupingBy(pizza -> pizza.getIngredients().size()));
+    }
+
+    // pizza menu: nazwa (składniki) - cena zł
+    public String formatedMenu(){
+        Random random = new Random();
+        int randomIndex = random.nextInt(Pizza.values().length);
+        Pizza pizzaOfTheDay = Pizza.values()[randomIndex];
+
+        return Arrays.stream(Pizza.values())
+                .map(pizza -> String.format(
+                        "%15s (%-90s) %5s %4s - %5.2f zł %1s",
+                        pizza.getName(),
+                        pizza.getIngredients().stream().map(Ingredient::getName).collect(Collectors.joining(", ")),
+                        pizza.getIngredients().stream().anyMatch(Ingredient::isSpicy) ? "ostra" : "",
+                        pizza.getIngredients().stream().noneMatch(Ingredient::isMeat) ? "wege" : "",
+                        pizza.equals(pizzaOfTheDay) ? (double) calculatePizzaPrice(pizza) * 0.5 : (double) calculatePizzaPrice(pizza),
+                        pizza.equals(pizzaOfTheDay) ? "Pizza Dnia 50% off" : ""
+                )).collect(Collectors.joining("\n"));
     }
     public static void main(String[] args) {
         PizzaController pc = new PizzaController();
@@ -84,5 +105,6 @@ public class PizzaController {
         pc.groupByPrice().forEach((price, pizzas) -> System.out.println(price + " : " + pizzas));
         pc.groupBySpicy().forEach((spicy, pizzas) -> System.out.println(spicy + " : " + pizzas));
         pc.groupByIngredientsSize().forEach((ingredients, pizzas) -> System.out.println(ingredients + " : " + pizzas));
+        System.out.println(pc.formatedMenu());
     }
 }
