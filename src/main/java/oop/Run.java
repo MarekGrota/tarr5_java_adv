@@ -96,9 +96,12 @@ public class Run extends InputOutputController {
                 uc.findAllUsersOrderByEmail(asc).forEach(user -> System.out.println(user));
             } else if (choice.equals("7")) {
                 try {
-                    System.out.println("Podaj id do zmiany ról:");
+                    System.out.println("Podaj id użytkownika do zmiany ról:");
                     int userId = Integer.valueOf(scanner.nextLine());
                     Set<Role> roles = new HashSet<>();
+                    if (uc.findUserById(userId) == null) {
+                        continue;
+                    }
                     while (true) {
                         System.out.println("Wybierz pojedyńczo role (Q-kończy wybór):");
                         Arrays.stream(Role.values()).forEach(role -> System.out.println(role.ordinal() + "." + role));

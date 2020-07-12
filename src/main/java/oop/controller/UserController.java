@@ -67,7 +67,7 @@ public class UserController implements UserControllerTemplate {
                 return user;
             }
         }
-        System.out.println("Nie znaleziono użytkownika o id=" + userId);
+        System.out.println("Nie znaleziono użytkownika o id = " + userId);
         return null;
     }
 
