@@ -139,7 +139,7 @@ public class PizzaController {
         return  pizza.getIngredients().size();
     }
     // pizza menu - po wielkości składników
-    public String formatedMenuOrderByIngreadientsSizeDesc(){
+    public String formatedMenuOrderByIngredientsSizeDesc(){
         Random random = new Random();
         int randomIndex = random.nextInt(Pizza.values().length);
         Pizza pizzaOfTheDay = Pizza.values()[randomIndex];
@@ -175,9 +175,13 @@ public class PizzaController {
         pc.groupByPrice().forEach((price, pizzas) -> System.out.println(price + " : " + pizzas));
         pc.groupBySpicy().forEach((spicy, pizzas) -> System.out.println(spicy + " : " + pizzas));
         pc.groupByIngredientsSize().forEach((ingredients, pizzas) -> System.out.println(ingredients + " : " + pizzas));
-        System.out.println("MENU:");
+        System.out.println("MENU");
         System.out.println(pc.formatedMenu());
-        System.out.println("MENU PO NAZWIE:");
+        System.out.println("MENU POSOTROWANE PO NAZWIE");
         System.out.println(pc.formatedMenuOrderByName());
+        System.out.println("MENU POSOTROWANE PO CENIE");
+        System.out.println(pc.formatedMenuOrderByPrice());
+        System.out.println("MENU POSOTROWANE PO LICZBIE SKŁADNIKÓW");
+        System.out.println(pc.formatedMenuOrderByIngredientsSizeDesc());
     }
 }
