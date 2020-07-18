@@ -19,7 +19,12 @@ public class Main {
         System.out.println("nowy status użytkownika to: " + userAllArgs.isStatus());
         System.out.println("nowa data rejestracji to: " + userNoArgs.getRegistrationDateTime());
         // szablon formatowania daty
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy 'r.' HH:mm");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy 'r. (g.'HH:mm')'");
         System.out.println("sformatowana  data rejestracji to: " + dtf.format(userNoArgs.getRegistrationDateTime()));
+        System.out.println("TASKI");
+        Task task = new Task();
+        Task task1 = new Task("Nauka Javy", "Programowanie obiektowe", false, userAllArgs);
+        System.out.println(task);
+        System.out.println(task1);
     }
 }
