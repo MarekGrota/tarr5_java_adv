@@ -1,6 +1,5 @@
 package threads;
 
-import java.sql.Time;
 import java.util.*;
 
 public class ThreadController {
@@ -15,7 +14,8 @@ public class ThreadController {
                 long timeStart = System.currentTimeMillis();
                 while (!numbers.isEmpty()) {
                     try {
-                        Thread.currentThread().sleep(new Random().nextInt(6) * 1000);     // uśpienie wąktu thread na 1s
+//                        Thread.currentThread().sleep(new Random().nextInt(6) * 1000);     // uśpienie wąktu thread na 1s
+                        Thread.currentThread().sleep(1000);
                         synchronized (numbers) {            // synchronizacja - sekcja krytyczna
                             System.out.println("Wątek: " + Thread.currentThread().getName() +
                                     " - wartość: " + numbers.removeFirst() +
