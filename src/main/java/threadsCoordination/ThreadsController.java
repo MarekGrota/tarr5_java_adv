@@ -19,18 +19,18 @@ public class ThreadsController {
 
     public void printNames() {
 
-    thread1 = new Thread (
-        () -> {
-        for (String name : names) {
-            System.out.println(Thread.currentThread().getName() + " : " + name);
-            try {
-                Thread.currentThread().sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        thread1 = new Thread(
+                () -> {
+                    for (String name : names) {
+                        System.out.println(Thread.currentThread().getName() + " : " + name);
+                        try {
+                            Thread.currentThread().sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-        },"Producer 1");
+                }, "Producer 1");
         thread1.start();
     }
 
@@ -63,10 +63,9 @@ public class ThreadsController {
         try {
             tc.thread1.join();
             tc.thread2.join();
-        }catch (InterruptedException e){
-            e.printStackTrace();}
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("KONIEC");
-        
-
     }
 }
