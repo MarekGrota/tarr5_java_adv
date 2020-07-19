@@ -10,15 +10,17 @@ public class Account {
     private String accountNumber;
     private double accountSaldo;
 
-    public void addIncome(double amount){
+    public void addIncome(double amount) {
         this.accountSaldo += amount;
     }
-    public void getOutcome(double amount){
-        if(amount <= accountSaldo) {
+
+    public void getOutcome(double amount) {
+        if (amount <= accountSaldo) {
+            System.out.println(Thread.currentThread().getName() + " wypłata: " + amount + " zł");
             this.accountSaldo -= amount;
         } else {
             System.out.println("Operacja niemożliwa do zrealizowania:");
-            System.out.println("Aktualne saldo: " + accountSaldo);
         }
+        System.out.println(Thread.currentThread().getName() + " aktualne saldo: " + accountSaldo);
     }
 }
